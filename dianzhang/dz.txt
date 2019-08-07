@@ -1,0 +1,78 @@
+action=Geek-full&p=9127576&curidentity=1&v=4.302&app_id=1001&req_time=1565148794361&uniqid=E321EBA9DF42B24AA127F41BB7105790&client_info={"version":"5.1.1","os":"Android","start_time":"1565148730525","resume_time":"1565148730525","channel":"0","model":"gionee||0g1s","ssid":"FAST-knh6-5G","bssid":"00:C8:1D:07:A3:6D","network":"wifi","imei":"351512327287255","dzt":1}&t=BBmlQQQA0UmhUZgBmW2EHYgI0AjNRYAdjCGdaaQ..&sig=07f3aeb63ffe9c3d43b97f7b4f11873c&
+
+
+
+https://api.dianzhangzhipin.com/api/batch/run?batchMethodFeed=%5B%22method%3Dgeek.search.boss.v3%26page%3D1%26lng%3D116.410242%26positionIndex%3D0%26positionId%3D95395081%26positionCode%3D41140%26lat%3D39.916403%26cityCode%3D7%26district%3D%26area%3D%26salaryCode%3D0%26sortType%3D1%26roam%3D-1%22%2C%22method%3Dcommon.ad%22%5D&curidentity=1&v=4.302&app_id=1001&req_time=1565151142040&uniqid=E321EBA9DF42B24AA127F41BB7105790&client_info={"version":"5.1.1","os":"Android","start_time":"1565148730525","resume_time":"1565148730525","channel":"0","model":"gionee||0g1s","ssid":"FAST-knh6-5G","bssid":"00:C8:1D:07:A3:6D","network":"wifi","imei":"351512327287255","dzt":1}&t=BBmlQQQA0UmhUZgBmW2EHYgI0AjNRYAdjCGdaaQ..&sig=f2d4697ced4377606ca7980c437ee661
+
+
+batchMethodFeed=%5B%22method%3Dgeek.search.boss.v3%26page%3D1%26lng%3D116.410242%26positionIndex%3D0%26positionId%3D95395081%26positionCode%3D41140%26lat%3D39.916403%26cityCode%3D7%26district%3D%26area%3D%26salaryCode%3D0%26sortType%3D1%26roam%3D-1%22%2C%22method%3Dcommon.ad%22%5D
+
+
+1.  每个请求的准备参数  
+	public String toString() {
+        Set<String> keySet = this.pListMaps.keySet();
+        StringBuffer stringBuffer = new StringBuffer();
+        for (String str : keySet) {
+            stringBuffer.append(str);
+            stringBuffer.append("=");
+            stringBuffer.append((String) this.pListMaps.get(str));
+            stringBuffer.append(VoiceWakeuperAidl.PARAMS_SEPARATE);
+        }
+        return stringBuffer.toString();
+    }
+	LinkedHashMap maps 是一个有序字典
+	之前的maps.toString() 最终格式 {"a":"o"} -> a=o;
+	
+2.      Params params = new Params();
+        params.put("action", str);
+        params.put("p", str2);
+        C0758ae.m811b(params.toString());   params.toString()-> action=Geek-full;p=9127576;
+        str = C0758ae.m803a();
+        new Request(f1851a).post(str, Request.a(str, params), new C56587());
+		
+3. 	 httpParams.put("sig", C3141f.m10451a(str, httpParams.getMap(), a));
+	计算：
+     str = 'https://api.dianzhangzhipin.com/api/batch/run'
+	 httpParams = {
+"batchMethodFeed":'["method=geek.search.boss.v3&page=1&lng=116.410242&positionIndex=0&positionId=95395081&positionCode=41140&lat=39.916403&cityCode=7&district=&area=&salaryCode=0&sortType=1&roam=-1","method=common.ad"]',
+"curidentity":1,
+"v":4.302,
+"app_id":1001,
+"req_time":1565151142040,
+"uniqid":"E321EBA9DF42B24AA127F41BB7105790",
+"client_info":'{"version":"5.1.1","os":"Android","start_time":"1565148730525","resume_time":"1565148730525","channel":"0","model":"gionee||0g1s","ssid":"FAST-knh6-5G","bssid":"00:C8:1D:07:A3:6D","network":"wifi","imei":"351512327287255","dzt":1}',
+"t":"BBmlQQQA0UmhUZgBmW2EHYgI0AjNRYAdjCGdaaQ.."
+	 }
+	 
+4.      /* renamed from: a */
+    private static String m10452a(Map<String, String> map) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (map == null) {
+            return null;
+        }
+        List<Entry> arrayList = new ArrayList(map.entrySet());
+        Collections.sort(arrayList, new C31401());  # key  升序排列
+        for (Entry entry : arrayList) {
+            if (!TextUtils.isEmpty((CharSequence) entry.getValue())) {
+                stringBuilder.append((String) entry.getKey());
+                stringBuilder.append("=");
+                stringBuilder.append((String) entry.getValue());
+            }
+        }
+        return stringBuilder.toString();
+    } 
+	计算：
+	app_id=1001batchMethodFeed=["method=geek.search.boss.v3&page=1&lng=116.410242&positionIndex=0&positionId=95395081&positionCode=41140&lat=39.916403&cityCode=7&district=&area=&salaryCode=0&sortType=1&roam=-1","method=common.ad"]client_info={"version":"5.1.1","os":"Android","start_time":"1565148730525","resume_time":"1565148730525","channel":"0","model":"gionee||0g1s","ssid":"FAST-knh6-5G","bssid":"00:C8:1D:07:A3:6D","network":"wifi","imei":"351512327287255","dzt":1}curidentity=1req_time=1565151142040t=BBmlQQQA0UmhUZgBmW2EHYgI0AjNRYAdjCGdaaQ..uniqid=E321EBA9DF42B24AA127F41BB7105790v=4.302
+
+5.      String str2 = "9f738a3934abf88b1dca8e8092043fbd";
+        if (z) {  # 暂不考虑
+            stringBuilder = new StringBuilder();
+            stringBuilder.append(str2);
+            stringBuilder.append(f.c());
+            str2 = stringBuilder.toString();
+        }
+        stringBuilder = new StringBuilder();
+        stringBuilder.append(c.a(str));   #  /api/batch/run  就是计算url里去掉域名部分
+        stringBuilder.append(a);   4的结果
+        stringBuilder.append(str2);   9f738a3934abf88b1dca8e8092043fbd
+        return MD5.convert(stringBuilder.toString());
